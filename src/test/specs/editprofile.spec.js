@@ -12,7 +12,6 @@ describe("Edit Trello user profile", () => {
         await $("#login-submit").click()
         await browser.pause(5000)
         await expect(browser).toHaveTitle("Boards | Trello")
-        await browser.maximizeWindow()
     })
     it("Open a profile page", async () => {
         await expect(browser).toHaveTitle("Boards | Trello")
