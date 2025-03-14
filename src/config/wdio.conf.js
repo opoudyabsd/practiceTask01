@@ -1,3 +1,5 @@
+require('dotenv').config(); // Load .env file
+
 exports.config = {
     //
     // ====================
@@ -21,7 +23,7 @@ exports.config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './test/specs/**/*.js'
+        '../test/specs/editprofile.spec.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -50,9 +52,17 @@ exports.config = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: 'chrome'
+        browserName: 'chrome',
+        'goog:chromeOptions': {
+            args: ['--lang=en-US'] // Change 'en-US' to your preferred language
+        }
     }, {
-        browserName: 'firefox'
+        browserName: 'firefox',
+        'moz:firefoxOptions': {
+            prefs: {
+                'intl.accept_languages': 'en-US' // Change 'fr-FR' to your preferred language
+            }
+        }
     }],
 
     //
@@ -86,7 +96,7 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'https://www.epam.com/',
+    baseUrl: 'https://trello.com/',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
