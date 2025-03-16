@@ -1,45 +1,50 @@
 // process.env.EMAIL
 // process.env.PASSWORD
+import { $, browser,expect } from "@wdio/globals"
+
 import { faker } from '@faker-js/faker';
-
+import BasePage from '../../pom/basePage';
+import SignUp from '../../pom/SignUpPage';
+import SignIn from "../../pom/signInPage";
+const basePage = new BasePage()
+const signInPage = new SignIn()
 describe("Trello Sign UP", () => {
-    beforeEach(async ()=> {
-        await browser.url('/')
-        await browser.maximizeWindow()
-
+    before(async ()=> {
+        await basePage.open("/")
+        await expect(browser).toHaveTitle("Capture, organize, and tackle your to-dos from anywhere | Trello");
     })
-    it("Succsseful sign Up with new email", async () => {
-        const email = faker.internet.email()
-        await expect(browser).toHaveTitle("Capture, organize, and tackle your to-dos from anywhere | Trello")
-        await $('[type="Submit"]').click()
+    it("Open signUp page", async () => {
+        await basePage.openSignUp()
         await expect(browser).toHaveTitle("Sign up - Log in with Atlassian account")
-        await $('#email').setValue(email)
-        await expect($("#email")).toHaveValue(email)
-        await $('#signup-submit').click()
-        await $(".IxRgeAVbrErAiv").waitForDisplayed({ timeout: 15000 })
+    })
+    it('Enter email and click submit button', async () => {
+        await SignUp.enterEmail()
+        await SignUp.submitButton.click()
+        await SignUp.isWorkspacePageLoaded() // I set 17 sec becuase from time to time a have a big time for redirection for next page
         await expect(browser).toHaveTitle("Create your first Workspace | Trello")
-        await expect($(".IxRgeAVbrErAiv")).toHaveText("What brings you here today?")
+        await expect(SignUp.workSpaceHeader).toHaveText("What brings you here today?")
     })
 })
 
 describe("Trello Sign IN", () => {
-    beforeEach(async ()=> {
-        await browser.url('/')
+    before(async () => {
         await browser.reloadSession();
-        await browser.maximizeWindow()
+        await basePage.open("/")
+        await expect(browser).toHaveTitle("Capture, organize, and tackle your to-dos from anywhere | Trello")
 
     })
-    it("Successful sign in with registered email", async () => {
-        await browser.url('/')
-        await expect(browser).toHaveTitle("Capture, organize, and tackle your to-dos from anywhere | Trello")
-        await $('[data-uuid="MJFtCCgVhXrVl7v9HA7EH_login"]').click()
+    it("Open SignIn page", async () => {
+        await basePage.openSignIn()
         await expect(browser).toHaveTitle("Log in to continue - Log in with Atlassian account")
-        await $("#username").setValue(process.env.EMAIL)
-        await $("#login-submit").click()
-        await expect($("#password")).toBeDisplayed()
-        await $("#password").setValue(process.env.PASSWORD)
-        await $("#login-submit").click()
-        await browser.pause(5000)
+    })
+    it("Signin with valid email and password", async () => {
+        await signInPage.setEmail()
+        await signInPage.loginSumbitButtonClick()
+        await expect(signInPage.password).toBeDisplayed()
+        await signInPage.setPassword()
+        await signInPage.loginSumbitButtonClick()
+        await browser.pause(5000) // Because of timeout delay 
         await expect(browser).toHaveTitle("Boards | Trello")
+        await expect(signInPage.homeContainer).toBeDisplayed()
     })
 })

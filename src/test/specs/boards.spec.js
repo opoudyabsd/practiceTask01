@@ -29,14 +29,14 @@ describe("Create a bord", () => {
 
 describe("Search for existing board", () => {
     before(async () => {
-        await browser.maximizeWindow()
+    //     await browser.maximizeWindow()
         await browser.url('/')
-        await $('[data-uuid="MJFtCCgVhXrVl7v9HA7EH_login"]').click()
-        await $("#username").setValue(process.env.EMAIL)
-        await $("#login-submit").click()
-        await expect($("#password")).toBeDisplayed()
-        await $("#password").setValue(process.env.PASSWORD)
-        await $("#login-submit").click()
+    //     await $('[data-uuid="MJFtCCgVhXrVl7v9HA7EH_login"]').click()
+    //     await $("#username").setValue(process.env.EMAIL)
+    //     await $("#login-submit").click()
+    //     await expect($("#password")).toBeDisplayed()
+    //     await $("#password").setValue(process.env.PASSWORD)
+    //     await $("#login-submit").click()
         await browser.pause(5000)
         await expect(browser).toHaveTitle("Boards | Trello")
     })
@@ -50,18 +50,18 @@ describe("Search for existing board", () => {
     })
 })
 
-describe.only("Create a list", () => {
+describe("Create a list", () => {
     before(async () => {
-        await browser.maximizeWindow()
-        await browser.url('/')
-        await $('[data-uuid="MJFtCCgVhXrVl7v9HA7EH_login"]').click()
-        await $("#username").setValue(process.env.EMAIL)
-        await $("#login-submit").click()
-        await expect($("#password")).toBeDisplayed()
-        await $("#password").setValue(process.env.PASSWORD)
-        await $("#login-submit").click()
-        await browser.pause(5000)
-        await expect(browser).toHaveTitle("Boards | Trello")
+        // await browser.maximizeWindow()
+        // await browser.url('/')
+        // await $('[data-uuid="MJFtCCgVhXrVl7v9HA7EH_login"]').click()
+        // await $("#username").setValue(process.env.EMAIL)
+        // await $("#login-submit").click()
+        // await expect($("#password")).toBeDisplayed()
+        // await $("#password").setValue(process.env.PASSWORD)
+        // await $("#login-submit").click()
+        // await browser.pause(5000)
+        // await expect(browser).toHaveTitle("Boards | Trello")
         await browser.url(process.env.BOARDURL)
     })
     it("Opening 'Create a list' form", async () => {
@@ -75,6 +75,94 @@ describe.only("Create a list", () => {
         await $('[data-testid="list-composer-add-list-button"]').click()
         await element.waitForDisplayed({ timeout: 3000 });  // Wait for up to 5 seconds
         await expect(element).toBeDisplayed()
+    })
+})
+
+describe("Create a card", () => {
+    before(async () => {
+    //     await browser.maximizeWindow()
+        // await browser.url('/')
+    //     await $('[data-uuid="MJFtCCgVhXrVl7v9HA7EH_login"]').click()
+    //     await $("#username").setValue(process.env.EMAIL)
+    //     await $("#login-submit").click()
+    //     await expect($("#password")).toBeDisplayed()
+    //     await $("#password").setValue(process.env.PASSWORD)
+    //     await $("#login-submit").click()
+    //     await browser.pause(5000)
+        // await expect(browser).toHaveTitle("Boards | Trello")
+        await browser.url(process.env.BOARDURL)
+    })
+    it("Expect a card field to be displayed", async () => {
+        await $('[data-testid="list-add-card-button"]').click()
+        await expect($('[data-testid="list-card-composer-textarea"]')).toBeDisplayed()
+    })
+    it("Create a new card", async () => {
+        await $('[data-testid="list-card-composer-textarea"]').setValue("newCart")
+        await $('[data-testid="list-card-composer-add-card-button"]').click()
+        await expect($('[data-testid="card-name"]')).toHaveText("newCart")
+        await expect($('.amUfYqLTZOvGsn')).toBeDisplayed()
+    })
+    
+})
+
+describe("Cart sorting", () => {
+    before(async () => {
+        await browser.maximizeWindow()
+        await browser.url('/')
+        await $('[data-uuid="MJFtCCgVhXrVl7v9HA7EH_login"]').click()
+        await $("#username").setValue(process.env.EMAIL)
+        await $("#login-submit").click()
+        await browser.pause(5000)
+        await expect($("#password")).toBeDisplayed()
+        await $("#password").setValue(process.env.PASSWORD)
+        await $("#login-submit").click()
+        await browser.pause(5000)
+        await expect(browser).toHaveTitle("Boards | Trello")
+        await browser.url(process.env.BOARDURL)
+        await browser.pause(2000)
+    })
+    it("Expect a list with few card is created", async () => {
+        const specificOl = await $('[data-testid="list-cards"]')
+        await expect($('[data-testid="list-name"]')).toHaveText("Already created list")
+        await expect(specificOl.$$("li")).toBeElementsArrayOfSize(6)
+    })
+    it("Implement sorting", async () => {
+        await $('[data-testid="list-edit-menu-button"]').click()
+        await expect($('[title="List actions"]')).toBeDisplayed()
+        await $('//span[text()="Sort by…"]').click()
+        await expect($('[title="Sort list"]')).toBeDisplayed()
+        await $(".js-sort-by-card-name").click()
+        await $(".QMKgZFIlTLiEJN").waitForDisplayed(1000)
+    })
+})
+
+
+describe.only("Edit workspace", () => {
+    before(async () => {
+        await browser.maximizeWindow()
+        await browser.url('/')
+        await $('[data-uuid="MJFtCCgVhXrVl7v9HA7EH_login"]').click()
+        await $("#username").setValue(process.env.EMAIL)
+        await $("#login-submit").click()
+        await browser.pause(5000)
+        await expect($("#password")).toBeDisplayed()
+        await $("#password").setValue(process.env.PASSWORD)
+        await $("#login-submit").click()
+        await browser.pause(5000)
+        await expect(browser).toHaveTitle("Boards | Trello")
+        await browser.url('/w/userworkspace20722308/home')
+    })
+    it("Open workspace editing form", async () => {
+        await $('.Ch1Opdvr77xkJp.bxgKMAm3lq5BpA.iUcMblFAuq9LKn.SEj5vUdI3VvxDc').click()
+        await expect($('[aria-label="OrganizationDetailForm"]')).toBeDisplayed()
+    })
+    it("Change name of the workspace", async () => {
+        const workspaceName = faker.internet.username()
+        await $("#displayName").setValue(workspaceName)
+        await expect($('#displayName')).toHaveValue(workspaceName)
+        await $('[type="submit"]').click()
+        await expect($('[aria-label="OrganizationDetailForm"]')).not.toBeDisplayed();
+        await expect($('.SiP6d2d_8FAAkC')).toHaveText(workspaceName)
     })
 
 

@@ -1,17 +1,24 @@
 import { faker } from '@faker-js/faker';
+import BasePage from '../../pom/basePage';
+import SignIn from '../../pom/signInPage';
+import EditProfile from '../../pom/editProfilePage';
+const basePage = new BasePage()
+const signInPage = new SignIn()
 
 describe("Edit Trello user profile", () => {
     before(async () => {
-        await browser.maximizeWindow()
-        await browser.url('/')
-        await $('[data-uuid="MJFtCCgVhXrVl7v9HA7EH_login"]').click()
-        await $("#username").setValue(process.env.EMAIL)
-        await $("#login-submit").click()
-        await expect($("#password")).toBeDisplayed()
-        await $("#password").setValue(process.env.PASSWORD)
-        await $("#login-submit").click()
-        await browser.pause(5000)
+        await basePage.open("/")
+        await expect(browser).toHaveTitle("Capture, organize, and tackle your to-dos from anywhere | Trello")
+        await basePage.openSignIn()
+        await expect(browser).toHaveTitle("Log in to continue - Log in with Atlassian account")
+        await signInPage.setEmail()
+        await signInPage.loginSumbitButtonClick()
+        await expect(signInPage.password).toBeDisplayed()
+        await signInPage.setPassword()
+        await signInPage.loginSumbitButtonClick()
+        await browser.pause(5000) // Because of timeout delay 
         await expect(browser).toHaveTitle("Boards | Trello")
+        await expect(signInPage.homeContainer).toBeDisplayed()
     })
     it("Open a profile page", async () => {
         await expect(browser).toHaveTitle("Boards | Trello")
