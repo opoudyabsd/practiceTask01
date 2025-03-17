@@ -18,6 +18,8 @@
   },
   "dependencies": {
     "@faker-js/faker": "^9.6.0",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "imap-simple": "^5.1.0",
+    "mailosaur": "^8.8.1"
   }
 }

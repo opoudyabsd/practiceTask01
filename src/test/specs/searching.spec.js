@@ -1,10 +1,9 @@
 import BasePage from '../../pom/basePage';
+import searchingPage from '../../pom/searchingPage';
 import SignIn from '../../pom/signInPage';
-import EditProfile from '../../pom/editProfilePage';
 const basePage = new BasePage()
 const signInPage = new SignIn()
-
-describe("Edit Trello user profile", () => {
+describe("Search for existing board", () => {
     before(async () => {
         await basePage.open("/")
         await expect(browser).toHaveTitle("Capture, organize, and tackle your to-dos from anywhere | Trello")
@@ -19,16 +18,12 @@ describe("Edit Trello user profile", () => {
         await expect(browser).toHaveTitle("Boards | Trello")
         await expect(signInPage.homeContainer).toBeDisplayed()
     })
-    it("Open a profile page", async () => {
-        await EditProfile.avatarMenuButton.click()
-        await expect(EditProfile.avatarMenu).toBeDisplayed()
-        await EditProfile.profileButton.click()
-        await expect(browser).toHaveTitle("Profile | Trello")
-        await expect(EditProfile.h1Header).toHaveText("Manage your personal information")
+    it("Open advanced-search", async () => {
+        await searchingPage.openAdvanceSeach()
+        await expect(searchingPage.advanceSeachHeader).toHaveText("Search")
     })
-    it("Change username", async () => {
-        await EditProfile.changeUsername()
-        await browser.pause(1000)
-        await expect(EditProfile.savedMessage).toBeDisplayed()
+    it("Searching for existing board", async () => {
+        await searchingPage.searchBoard()
+        await searchingPage.isBoardDisplayed()
     })
 })
