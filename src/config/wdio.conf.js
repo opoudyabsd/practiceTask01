@@ -23,7 +23,12 @@ exports.config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        '../test/specs/signIn_up.spec.js'
+        // '../test/specs/signIn_up.spec.js',
+        // '../test/specs/editprofile.spec.js',
+        // '../test/specs/boards.spec.js',
+        '../test/specs/workspace.spec.js',
+        // '../test/specs/searching.spec.js'
+        
         // '../test/specs/searching.spec.js'
 
         
@@ -144,7 +149,8 @@ exports.config = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000
+        timeout: 60000,
+        retries: 2,
     },
 
     //

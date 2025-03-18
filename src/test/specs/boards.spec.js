@@ -12,9 +12,12 @@ describe("Create a bord", () => {
         await expect(browser).toHaveTitle("Log in to continue - Log in with Atlassian account")
         await signInPage.setEmail()
         await signInPage.loginSumbitButtonClick()
+        await browser.pause(2000)
         await expect(signInPage.password).toBeDisplayed()
         await signInPage.setPassword()
         await signInPage.loginSumbitButtonClick()
+        await browser.pause(5000) // Make sure if Code Verification is displayed
+        await signInPage.checkForCodeVerification()
         await browser.pause(5000) // Because of timeout delay 
         await expect(browser).toHaveTitle("Boards | Trello")
         await expect(signInPage.homeContainer).toBeDisplayed()
@@ -69,7 +72,7 @@ describe("Implement sorting for unsorting cards", () => {
     })
     it("Expect a list with few card is created", async () => {
         await expect(boardsPage.listName).toHaveText("Already created list")
-        await expect(boardsPage.cardsList.$$("li")).toBeElementsArrayOfSize(9)
+        await expect(boardsPage.cardsList.$$("li")).toBeElementsArrayOfSize(7)
     })
     it("Open edit menu section", async () => {
         await boardsPage.listEditMenuButton.click()

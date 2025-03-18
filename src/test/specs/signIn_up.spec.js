@@ -2,7 +2,6 @@
 // process.env.PASSWORD
 import { $, browser,expect } from "@wdio/globals"
 import { getVerificationCode } from "../../emailUtils"
-
 import BasePage from '../../pom/basePage';
 import SignUp from '../../pom/SignUpPage';
 import SignIn from "../../pom/signInPage";
@@ -40,17 +39,12 @@ describe.only("Trello Sign IN", () => {
     it("Signin with valid email and password", async () => {
         await signInPage.setEmail()
         await signInPage.loginSumbitButtonClick()
+        await browser.pause(2000)
         await expect(signInPage.password).toBeDisplayed()
         await signInPage.setPassword()
         await signInPage.loginSumbitButtonClick()
-        console.log("bibiBoom")
         await browser.pause(5000)
-        const isVerificationRequired = await $('.css-1ndkufm').isExisting()
-        if (isVerificationRequired) {
-            // If verification code form appears, retrieve the code from Mailosaur
-            const verificationCode = await getVerificationCode();
-            await $(".css-s6tjpp").setValue(verificationCode);
-        }
+        await signInPage.checkForCodeVerification()
         await browser.pause(5000) // Because of timeout delay 
         await expect(browser).toHaveTitle("Boards | Trello")
         await expect(signInPage.homeContainer).toBeDisplayed()

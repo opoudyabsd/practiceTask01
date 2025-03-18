@@ -11,9 +11,12 @@ describe("Search for existing board", () => {
         await expect(browser).toHaveTitle("Log in to continue - Log in with Atlassian account")
         await signInPage.setEmail()
         await signInPage.loginSumbitButtonClick()
+        await browser.pause(2000)
         await expect(signInPage.password).toBeDisplayed()
         await signInPage.setPassword()
         await signInPage.loginSumbitButtonClick()
+        await browser.pause(5000) // Make sure if Code Verification is displayed
+        await signInPage.checkForCodeVerification()
         await browser.pause(5000) // Because of timeout delay 
         await expect(browser).toHaveTitle("Boards | Trello")
         await expect(signInPage.homeContainer).toBeDisplayed()

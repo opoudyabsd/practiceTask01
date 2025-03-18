@@ -17,10 +17,10 @@ class WorkspacePage {
         return $('.SiP6d2d_8FAAkC')
     }
     get workspaceNewName() {
-        return "DidiBoom"
+        return "LosiBosi"
     }
     async openHomePage() {
-        await browser.url("/w/userworkspace20722308/home")
+        await browser.url("/w/userworkspace38492828/home")
     }
     async editWorkspaceName(newName) {
         await this.displayName.setValue(newName)

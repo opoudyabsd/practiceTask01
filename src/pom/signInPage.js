@@ -1,3 +1,5 @@
+import { getVerificationCode } from '../emailUtils'
+
 import BasePage from "./basePage"
 class SignIn extends BasePage {
     get userName() {
@@ -12,6 +14,12 @@ class SignIn extends BasePage {
     get homeContainer() {
         return $('.home-sticky-container')
     }
+    get verificationCodeExist() {
+        return $('.css-1ndkufm')
+    }
+    get verificationCodeForm() {
+        return $(".css-s6tjpp")
+    }
     async loginSumbitButtonClick() {
         await this.loginSumbitButton.click()
     }
@@ -21,6 +29,13 @@ class SignIn extends BasePage {
     }
     async setPassword() {
         await this.password.setValue(process.env.PASSWORD)
+    }
+    async checkForCodeVerification() {
+        const isVerificationRequired = await this.verificationCodeExist.isExisting()
+        if (isVerificationRequired) {
+            const verificationCode = await getVerificationCode();
+            await this.verificationCodeForm.setValue(verificationCode);
+        }
     }
 }
 
