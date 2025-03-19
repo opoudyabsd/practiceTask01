@@ -1,4 +1,4 @@
-import { getVerificationCode } from '../emailUtils'
+import { getVerificationCode } from '../utils/emailUtils'
 
 import BasePage from "./basePage"
 class SignIn extends BasePage {

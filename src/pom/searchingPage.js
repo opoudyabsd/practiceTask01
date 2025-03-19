@@ -1,4 +1,10 @@
+
+import chai from "chai";
+const { expect, assert } = chai;
+chai.should();
+
 class SearchPage{
+    
     get searchForm() {
         return $('[placeholder="Search"]')
     }
@@ -14,6 +20,7 @@ class SearchPage{
     get seachTitleName() {
         return process.env.TITLENAME
     }
+
     getBoardTitleSelector(titleBoard) {
         return $(`//div[@role="presentation"]//*[text()="${titleBoard}"]`);
     }
@@ -25,8 +32,9 @@ class SearchPage{
         await this.advanceSeachField.setValue(this.seachTitleName)
     }
     async isBoardDisplayed() {
-        await expect(this.getBoardTitleSelector(this.seachTitleName)).toBeDisplayed();
+        return await this.getBoardTitleSelector(this.seachTitleName).isDisplayed();
     }
+
 }
 
 export default new SearchPage

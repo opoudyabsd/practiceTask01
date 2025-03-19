@@ -1,37 +1,29 @@
-import BasePage from '../../pom/basePage';
-import SignIn from '../../pom/signInPage';
-import EditProfile from '../../pom/editProfilePage';
-const basePage = new BasePage()
-const signInPage = new SignIn()
+import EditProfile from "../../pom/editProfilePage";
+import { loginToTrello } from "../../utils/authHelper";
+import chai from "chai";
+const { expect, assert } = chai;
+chai.should();
 
 describe("Edit Trello user profile", () => {
-    before(async () => {
-        await basePage.open("/")
-        await expect(browser).toHaveTitle("Capture, organize, and tackle your to-dos from anywhere | Trello")
-        await basePage.openSignIn()
-        await expect(browser).toHaveTitle("Log in to continue - Log in with Atlassian account")
-        await signInPage.setEmail()
-        await signInPage.loginSumbitButtonClick()
-        await browser.pause(2000)
-        await expect(signInPage.password).toBeDisplayed()
-        await signInPage.setPassword()
-        await signInPage.loginSumbitButtonClick()
-        await browser.pause(5000) // Make sure if Code Verification is displayed
-        await signInPage.checkForCodeVerification()
-        await browser.pause(5000) // Because of timeout delay 
-        await expect(browser).toHaveTitle("Boards | Trello")
-        await expect(signInPage.homeContainer).toBeDisplayed()
-    })
-    it("Open a profile page", async () => {
-        await EditProfile.avatarMenuButton.click()
-        await expect(EditProfile.avatarMenu).toBeDisplayed()
-        await EditProfile.profileButton.click()
-        await expect(browser).toHaveTitle("Profile | Trello")
-        await expect(EditProfile.h1Header).toHaveText("Manage your personal information")
-    })
-    it("Change username", async () => {
-        await EditProfile.changeUsername()
-        await browser.pause(1000)
-        await expect(EditProfile.savedMessage).toBeDisplayed()
-    })
-})
+  before(async () => {
+    await loginToTrello();
+  });
+  it("Open a profile page", async () => {
+    await EditProfile.avatarMenuButton.waitForClickable({ timeout: 5000 });
+    await EditProfile.avatarMenuButton.click();
+    await EditProfile.avatarMenu.waitForDisplayed({ timeout: 5000 });
+    expect(await EditProfile.avatarMenu.isDisplayed()).to.be.true;
+    await EditProfile.profileButton.waitForClickable({ timeout: 5000 });
+    await EditProfile.profileButton.click();
+    expect(await EditProfile.getProfileTitle()).to.equal("Profile | Trello");
+    expect(await EditProfile.getHeaderText()).to.equal(
+      "Manage your personal information"
+    );
+  });
+  it("Change username", async () => {
+    await EditProfile.changeUsername();
+    await browser.pause(1000);
+    await EditProfile.savedMessage.waitForDisplayed({ timeout: 5000 });
+    expect(await EditProfile.savedMessage.isDisplayed()).to.be.true;
+  });
+});

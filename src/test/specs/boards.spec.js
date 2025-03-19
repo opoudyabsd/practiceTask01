@@ -1,26 +1,9 @@
-import { faker } from '@faker-js/faker';
-import BasePage from '../../pom/basePage';
-import SignIn from '../../pom/signInPage';
 import boardsPage from '../../pom/boardsPage';
-const basePage = new BasePage()
-const signInPage = new SignIn()
+import { loginToTrello } from '../../utils/authHelper';
+
 describe("Create a bord", () => {
     before(async () => {
-        await basePage.open("/")
-        await expect(browser).toHaveTitle("Capture, organize, and tackle your to-dos from anywhere | Trello")
-        await basePage.openSignIn()
-        await expect(browser).toHaveTitle("Log in to continue - Log in with Atlassian account")
-        await signInPage.setEmail()
-        await signInPage.loginSumbitButtonClick()
-        await browser.pause(2000)
-        await expect(signInPage.password).toBeDisplayed()
-        await signInPage.setPassword()
-        await signInPage.loginSumbitButtonClick()
-        await browser.pause(5000) // Make sure if Code Verification is displayed
-        await signInPage.checkForCodeVerification()
-        await browser.pause(5000) // Because of timeout delay 
-        await expect(browser).toHaveTitle("Boards | Trello")
-        await expect(signInPage.homeContainer).toBeDisplayed()
+        await loginToTrello()
     })
     it("Open 'Create board' menu", async () => {
         await boardsPage.boardMenuButton.click()
