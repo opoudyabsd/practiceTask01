@@ -1,6 +1,8 @@
 import workspacePage from "../../pom/workspacePage";
 import { loginToTrello } from "../../utils/authHelper";
-
+import chai from "chai";
+const { expect, assert } = chai;
+chai.should();
 describe("Edit workspace", () => {
   before(async () => {
     await loginToTrello();

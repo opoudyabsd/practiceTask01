@@ -24,9 +24,9 @@ exports.config = {
   // of the config file unless it's absolute.
   //
   specs: [
-    // '../test/specs/signIn_up.spec.js',
-    "../test/specs/editprofile.spec.js",
-    // '../test/specs/boards.spec.js',
+    // "../test/specs/signIn_up.spec.js",
+    // "../test/specs/editprofile.spec.js",
+    "../test/specs/boards.spec.js",
     // '../test/specs/workspace.spec.js',
     // '../test/specs/searching.spec.js'
 
@@ -62,15 +62,15 @@ exports.config = {
     {
       browserName: "chrome",
       "goog:chromeOptions": {
-        args: ["--lang=en-US"], // Change 'en-US' to your preferred language
+        args: ["--lang=en-US"],
+        //   "--headless"
       },
     },
     {
       browserName: "firefox",
       "moz:firefoxOptions": {
-        prefs: {
-          "intl.accept_languages": "en-US", // Change 'fr-FR' to your preferred language
-        },
+        prefs: { "intl.accept_languages": "en-US" },
+        // args: ["-headless"],
       },
     },
   ],
