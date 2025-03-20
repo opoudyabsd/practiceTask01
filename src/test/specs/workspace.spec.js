@@ -10,20 +10,14 @@ describe("Edit workspace", () => {
 
   it("Open workspace editing form", async () => {
     await workspacePage.openHomePage();
-    await browser.pause(2000);
+    await workspacePage.workspaceEditButton.waitForClickable()
     await workspacePage.workspaceEditButton.click();
-    const isDisplayed = await workspacePage.workspaceEditForm.isDisplayed();
-    assert.isTrue(isDisplayed, "Workspace edit form isn't displayed");
+    assert.isTrue(await workspacePage.workspaceEditForm.isDisplayed());
   });
 
   it("Change name of the workspace", async () => {
     await workspacePage.editWorkspaceName(workspacePage.workspaceNewName);
-    await browser.waitUntil(
-      async () => {
-        return !(await workspacePage.workspaceEditForm.isDisplayed());
-      },
-      { timeout: 5000 }
-    );
+    expect(await workspacePage.notDisplayed()).to.be.false
     expect(await workspacePage.workspaceUsername.getText()).to.equal(
       workspacePage.workspaceNewName
     );

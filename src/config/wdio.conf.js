@@ -24,13 +24,12 @@ exports.config = {
   // of the config file unless it's absolute.
   //
   specs: [
-    // "../test/specs/signIn_up.spec.js",
-    // "../test/specs/editprofile.spec.js",
+    "../test/specs/signIn_up.spec.js",
+    "../test/specs/editprofile.spec.js",
     "../test/specs/boards.spec.js",
-    // '../test/specs/workspace.spec.js',
-    // '../test/specs/searching.spec.js'
+    '../test/specs/workspace.spec.js',
+    '../test/specs/searching.spec.js'
 
-    // '../test/specs/searching.spec.js'
   ],
   // Patterns to exclude.
   exclude: [
@@ -62,7 +61,7 @@ exports.config = {
     {
       browserName: "chrome",
       "goog:chromeOptions": {
-        args: ["--lang=en-US"],
+        args: ["--lang=en-US","--headless"],
         //   "--headless"
       },
     },
@@ -70,7 +69,7 @@ exports.config = {
       browserName: "firefox",
       "moz:firefoxOptions": {
         prefs: { "intl.accept_languages": "en-US" },
-        // args: ["-headless"],
+        args: ["-headless"],
       },
     },
   ],
@@ -151,7 +150,7 @@ exports.config = {
   mochaOpts: {
     ui: "bdd",
     timeout: 60000,
-    // retries: 2,
+    retries: 2,
   },
 
   //

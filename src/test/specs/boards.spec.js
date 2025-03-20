@@ -32,6 +32,7 @@ describe("Create a list", () => {
   });
   it("Create a new list", async () => {
     await boardsPage.createList();
+    await boardsPage.list.waitForDisplayed()
     assert.isTrue(await boardsPage.list.isDisplayed());
   });
 });
@@ -43,7 +44,6 @@ describe("Create a card", () => {
   it("Expect a card field to be displayed", async () => {
     await boardsPage.addCardButton.click();
     (await boardsPage.addCardForm.isDisplayed()).should.be.true;
-    // await expect(boardsPage.addCardForm).toBeDisplayed();
   });
   it("Create a new card", async () => {
     await boardsPage.createNewCard("newCart");
@@ -52,15 +52,12 @@ describe("Create a card", () => {
   });
 });
 
-describe.only("Implement sorting for unsorting cards", () => {
+describe("Implement sorting for unsorting cards", () => {
   before(async () => {
-    await loginToTrello();
-
     await browser.url(process.env.BOARDURL);
-    await browser.pause(2000);
   });
   it("Expect a list with few card is created", async () => {
-    await boardsPage.list.waitForDisplayed({ timeout: 5000 });
+    await boardsPage.list.waitForDisplayed();
     expect(await boardsPage.list.isDisplayed()).to.be.true;
     expect(await boardsPage.cardsList.$$("li")).to.have.lengthOf(7);
   });
@@ -69,13 +66,13 @@ describe.only("Implement sorting for unsorting cards", () => {
     await boardsPage.listActionsIsDisplayed()
     expect(await boardsPage.listActions.isDisplayed()).to.be.true
     await boardsPage.sortByButton.click();
-    await boardsPage.sortListTitle.waitForDisplayed({ timeout: 5000 });
+    await boardsPage.sortListTitle.waitForDisplayed();
     assert.isTrue(await boardsPage.sortListTitle.isDisplayed());
   });
   it("Implement sorting", async () => {
     await boardsPage.sortByCardNameButton.click();
-    await boardsPage.sortedMessage.waitForDisplayed({ timeout: 5000 });
-    await browser.pause(1500)
+    await boardsPage.sortedMessage.waitForDisplayed();
+    await browser.pause(1500) // Because message appear after 1 second
     expect(await boardsPage.sortedMessage.getText()).to.equal(
       "Successfully sorted list"
     );

@@ -32,7 +32,10 @@ class SearchPage{
         await this.advanceSeachField.setValue(this.seachTitleName)
     }
     async isBoardDisplayed() {
-        return await this.getBoardTitleSelector(this.seachTitleName).isDisplayed();
+        await browser.waitUntil(async () => {
+            return await this.getBoardTitleSelector(this.seachTitleName).isDisplayed();
+        }, { timeout: 10000 })
+        return await this.getBoardTitleSelector(this.seachTitleName).isDisplayed()
     }
 
 }

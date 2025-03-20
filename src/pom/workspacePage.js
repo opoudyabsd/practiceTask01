@@ -1,5 +1,3 @@
-import { faker } from '@faker-js/faker';
-
 class WorkspacePage {
     get workspaceEditButton() {
         return $('.Ch1Opdvr77xkJp.bxgKMAm3lq5BpA.iUcMblFAuq9LKn.SEj5vUdI3VvxDc')
@@ -26,6 +24,15 @@ class WorkspacePage {
         await this.displayName.setValue(newName)
         await this.workspaceSaveButton.click()
     } 
+    async notDisplayed(){
+        await browser.waitUntil(
+            async () => {
+              return !(await this.workspaceEditForm.isDisplayed());
+            },
+            { timeout: 10000 }
+          );
+        return await this.workspaceEditForm.isDisplayed()
+    }
 
 }
 

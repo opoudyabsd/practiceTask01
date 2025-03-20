@@ -15,10 +15,6 @@ describe("Search for existing board", () => {
     })
     it("Searching for existing board", async () => {
         await searchingPage.searchBoard()
-        // expect(await searchingPage.isBoardDisplayed())
-        await browser.waitUntil(async () => {
-            return await searchingPage.isBoardDisplayed()
-        }, { timeout: 5000 })
         expect(await searchingPage.isBoardDisplayed()).to.be.true;
     })
 }) 

@@ -15,40 +15,26 @@ class SignUp extends BasePage {
   }
 
   get captchaElement() {
-    return $("#rc-anchor-container");
+    return $(".css-165xmen");
   }
   async enterEmail() {
     const newEmail = faker.internet.email();
     await this.email.setValue(newEmail);
     expect(await this.email.getValue()).to.equal(newEmail);
   }
-  async isWorkspacePageLoaded() {
-    await this.workSpaceHeader.waitForDisplayed({ timeout: 17000 });
-  }
-  async getSignUPTitle() {
+  async getPageTitle(title) {
     await browser.waitUntil(async () => {
       return (
-        (await browser.getTitle()) === "Sign up - Log in with Atlassian account"
-      );
-    });
-    return await browser.getTitle();
-  }
-
-  async getWorkspaceTitle() {
-    await browser.waitUntil(async () => {
-      return (
-        (await browser.getTitle()) === "Create your first Workspace | Trello"
+        (await browser.getTitle()) === title
       );
     });
     return await browser.getTitle();
   }
   async handleCaptcha() {
-    if (this.captchaElement.isExisting()) {
-      console.log("CAPTCHA detected, pausing test...");
-      browser.pause(40000); // Pause for manual CAPTCHA solving
-      this.submitButton.click(); // Click after solving CAPTCHA (if required)
-    } else {
-      console.log("No CAPTCHA, continuing test...");
+    await browser.pause(5000) // To check if CAPTCHA is exist
+    if (await this.captchaElement.isExisting()) {
+      await browser.pause(40000); 
+      await this.submitButton.click(); 
     }
   }
 }

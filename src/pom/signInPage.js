@@ -38,13 +38,13 @@ class SignIn extends BasePage {
       await this.verificationCodeForm.setValue(verificationCode);
     }
   }
-  async getSignInTitle() {
+  async getSignInTitle(title) {
     await browser.waitUntil(async () => {
       return (
         (await browser.getTitle()) ===
-        "Log in to continue - Log in with Atlassian account"
+        title
       );
-    });
+    }, {timeout: 15000});
     return await browser.getTitle();
   }
 }
