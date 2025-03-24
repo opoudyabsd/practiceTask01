@@ -38,15 +38,6 @@ class SignIn extends BasePage {
       await this.verificationCodeForm.setValue(verificationCode);
     }
   }
-  async getSignInTitle(title) {
-    await browser.waitUntil(async () => {
-      return (
-        (await browser.getTitle()) ===
-        title
-      );
-    }, {timeout: 15000});
-    return await browser.getTitle();
-  }
 }
 
 export default SignIn;

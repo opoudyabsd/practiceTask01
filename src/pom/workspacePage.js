@@ -15,7 +15,7 @@ class WorkspacePage {
         return $('h2.SiP6d2d_8FAAkC')
     }
     get workspaceNewName() {
-        return "Debil"
+        return "newNickName123123"
     }
     async openHomePage() {
         await browser.url("/w/userworkspace38492828/home")
@@ -24,16 +24,6 @@ class WorkspacePage {
         await this.displayName.setValue(newName)
         await this.workspaceSaveButton.click()
     } 
-    async notDisplayed(){
-        await browser.waitUntil(
-            async () => {
-              return !(await this.workspaceEditForm.isDisplayed());
-            },
-            { timeout: 10000 }
-          );
-        return await this.workspaceEditForm.isDisplayed()
-    }
-
 }
 
 export default new WorkspacePage

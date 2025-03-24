@@ -8,7 +8,7 @@ class Boards {
     return $(".q2PzD_Dkq1FVX3.pt-0");
   }
   get boardsTitleForm() {
-    return $(".nch-textfield__input.lsOhPsHuxEMYEb.lsOhPsHuxEMYEb");
+    return $('[data-testid="create-board-title-input"]');
   }
   get createButton() {
     return $('[data-testid="create-board-submit-button"]');
@@ -25,12 +25,6 @@ class Boards {
     const url = await browser.getUrl();
     await browser.url(url);
     await browser.pause(3000);
-  }
-  async getBoardTitle(title) {
-    await browser.waitUntil(async () => {
-      return (await browser.getTitle()) === `${title} | Trello`;
-    });
-    return await browser.getTitle();
   }
   /////////////////////////////////////////////////
   get addListButton() {
@@ -105,12 +99,6 @@ class Boards {
   }
   get sortedMessage() {
     return $(".QMKgZFIlTLiEJN");
-  }
-  async listActionsIsDisplayed(){
-    await browser.waitUntil(async()=>{
-        return await this.listActions.isDisplayed()
-    })
-    return await this.listActions.isDisplayed()
   }
 }
 

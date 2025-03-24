@@ -1,8 +1,4 @@
 
-import chai from "chai";
-const { expect, assert } = chai;
-chai.should();
-
 class SearchPage{
     
     get searchForm() {
@@ -21,21 +17,15 @@ class SearchPage{
         return process.env.TITLENAME
     }
 
-    getBoardTitleSelector(titleBoard) {
-        return $(`//div[@role="presentation"]//*[text()="${titleBoard}"]`);
+    getBoardTitleSelector() {
+        return $(`//div[@role="presentation"]//*[text()="${this.seachTitleName}"]`);
     }
     async openAdvanceSeach() {
         await this.searchForm.click()
         await this.advanceSeachButton.click()
     }
-    async searchBoard() {
+    async setValueSearchBoard() {
         await this.advanceSeachField.setValue(this.seachTitleName)
-    }
-    async isBoardDisplayed() {
-        await browser.waitUntil(async () => {
-            return await this.getBoardTitleSelector(this.seachTitleName).isDisplayed();
-        }, { timeout: 10000 })
-        return await this.getBoardTitleSelector(this.seachTitleName).isDisplayed()
     }
 
 }

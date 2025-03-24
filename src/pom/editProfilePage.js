@@ -1,7 +1,5 @@
 import { faker } from "@faker-js/faker";
-import chai from "chai";
-const { expect, assert } = chai;
-chai.should();
+
 class EditProfile {
   get avatarMenuButton() {
     return $('[data-testid="header-member-menu-avatar"]');
@@ -29,24 +27,9 @@ class EditProfile {
     let username = faker.internet.username();
     username = username.toLowerCase().replace(/[^a-z0-9]/g, "") + Date.now();
     await this.usernameId.setValue(username);
-    const getValueFrom = await this.usernameId.getValue();
-    expect(getValueFrom).to.equal(username);
+    await expect(this.usernameId).toHaveValue(username)
     await this.profileSaveButton.waitForClickable({ timeout: 5000 });
     await this.profileSaveButton.click();
-  }
-  async getHeaderText() {
-    await browser.waitUntil(async () => {
-      const text = await this.h1Header.getText();
-      return text.trim() === "Manage your personal information";
-    });
-    return await this.h1Header.getText();
-  }
-
-  async getProfileTitle() {
-    await browser.waitUntil(async () => {
-      return (await browser.getTitle()) === "Profile | Trello";
-    });
-    return await browser.getTitle();
   }
 }
 

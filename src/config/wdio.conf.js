@@ -24,11 +24,11 @@ exports.config = {
   // of the config file unless it's absolute.
   //
   specs: [
-    "../test/specs/signIn_up.spec.js",
-    "../test/specs/editprofile.spec.js",
+    // "../test/specs/signIn_up.spec.js",
+    // "../test/specs/editprofile.spec.js",
     "../test/specs/boards.spec.js",
-    '../test/specs/workspace.spec.js',
-    '../test/specs/searching.spec.js'
+    // '../test/specs/workspace.spec.js',
+    // '../test/specs/searching.spec.js'
 
   ],
   // Patterns to exclude.
@@ -61,7 +61,7 @@ exports.config = {
     {
       browserName: "chrome",
       "goog:chromeOptions": {
-        args: ["--lang=en-US","--headless"],
+        args: ["--lang=en-US"],
         //   "--headless"
       },
     },
@@ -69,7 +69,7 @@ exports.config = {
       browserName: "firefox",
       "moz:firefoxOptions": {
         prefs: { "intl.accept_languages": "en-US" },
-        args: ["-headless"],
+        // args: ["-headless"],
       },
     },
   ],

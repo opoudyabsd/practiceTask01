@@ -1,8 +1,5 @@
 import searchingPage from '../../pom/searchingPage';
 import { loginToTrello } from '../../utils/authHelper';
-import chai from "chai";
-const { expect, assert } = chai;
-chai.should();
 
 
 describe("Search for existing board", () => {
@@ -11,10 +8,10 @@ describe("Search for existing board", () => {
     })
     it("Open advanced-search", async () => {
         await searchingPage.openAdvanceSeach()
-        expect(await searchingPage.advanceSeachHeader.getText()).to.equal("Search")
+        await expect(searchingPage.advanceSeachHeader).toHaveText("Search")
     })
     it("Searching for existing board", async () => {
-        await searchingPage.searchBoard()
-        expect(await searchingPage.isBoardDisplayed()).to.be.true;
+        await searchingPage.setValueSearchBoard()
+        await expect(searchingPage.getBoardTitleSelector()).toBeDisplayed()
     })
 }) 
