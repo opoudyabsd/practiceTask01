@@ -11,10 +11,9 @@ describe("Create a bord", () => {
     await expect(boardsPage.createBoard.menu).toBeDisplayed();
   });
   it("Create a bord", async () => {
-    const titleBoard = process.env.TITLENAME;
-    await boardsPage.createBoard.newBoard(titleBoard);
-    await expect(browser).toHaveTitle(`${titleBoard} | Trello`);
-    await expect(boardsPage.boardNameDisplay).toHaveText(titleBoard);
+    await boardsPage.createBoard.newBoard(boardsPage.createBoard.titleBoardName);
+    await expect(browser).toHaveTitle(`${boardsPage.createBoard.titleBoardName} | Trello`);
+    await expect(boardsPage.boardNameDisplay).toHaveText(boardsPage.createBoard.titleBoardName);
   });
 });
 
@@ -41,10 +40,10 @@ describe("Create a card", () => {
     await expect(boardsPage.createCard.addCardForm).toBeDisplayed();
   });
   it("Create a new card", async () => {
-    const cardName = faker.internet.username();
-    await boardsPage.createCard.newCard(cardName);
+    const randomCardName = faker.internet.username();
+    await boardsPage.createCard.newCard(randomCardName);
     await expect(boardsPage.newCard).toBeDisplayed();
-    await expect(boardsPage.cardName).toHaveText(cardName);
+    await expect(boardsPage.cardName).toHaveText(randomCardName);
   });
 });
 
@@ -55,7 +54,7 @@ describe("Implement sorting for unsorting cards", () => {
   it("Expect a list with few card is created", async () => {
     await boardsPage.list.waitForDisplayed();
     await expect(boardsPage.list).toBeDisplayed();
-    await expect(boardsPage.cardsList.$$("li")).toBeElementsArrayOfSize(7);
+    await expect(boardsPage.cardsList.$$("li")).toBeElementsArrayOfSize(7); // Question, how to handle dynamic values of array element automatically?
   });
   it("Open edit menu section", async () => {
     await boardsPage.listEditMenuButton.click();
@@ -65,8 +64,8 @@ describe("Implement sorting for unsorting cards", () => {
   });
   it("Implement sorting", async () => {
     await boardsPage.sortingCard.byCardNameButton.click();
-    await boardsPage.sortedMessage.waitForDisplayed();
     await browser.pause(1500); // Because message appear after 1 second
+    await expect(boardsPage.sortedMessage).toBeDisplayed()
     await expect(boardsPage.sortedMessage).toHaveText(
       "Successfully sorted list"
     );

@@ -8,6 +8,10 @@ class CreateBoardComponent {
   get createButton() {
     return $('[data-testid="create-board-submit-button"]');
   }
+  get titleBoardName() {
+    return process.env.TITLENAME;
+
+  }
   async newBoard(title) {
     await this.titleForm.setValue(title);
     await this.createButton.click();

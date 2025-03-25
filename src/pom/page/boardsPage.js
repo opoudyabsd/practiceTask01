@@ -10,7 +10,7 @@ class BoardsPage {
     this.sortingCard = new SortingComponent();
   }
 
-  ////////////////////////////////////////////////
+  // Create a Board
   get boardMenuButton() {
     return $(".board-tile.mod-add");
   }
@@ -18,7 +18,7 @@ class BoardsPage {
     return $(".HKTtBLwDyErB_o");
   }
 
-  /////////////////////////////////////////////////
+  // Create a list
   get addListButton() {
     return $('//button[text()="Add a list"]');
   }
@@ -29,10 +29,10 @@ class BoardsPage {
   async openPage() {
     const url = await browser.getUrl();
     await browser.url(url);
-    await browser.pause(3000);
+    await browser.pause(1000);
   }
 
-  //////////////////////////////////////////////////
+  // Create a card
 
   get addCardButton() {
     return $('[data-testid="list-add-card-button"]');
@@ -45,8 +45,7 @@ class BoardsPage {
     return $(".amUfYqLTZOvGsn");
   }
 
-  /////////////////////////////////////////////////////
-
+  // Sorting cards
   get cardsList() {
     return $('[data-testid="list-cards"]');
   }
@@ -59,6 +58,7 @@ class BoardsPage {
   get sortedMessage() {
     return $(".QMKgZFIlTLiEJN");
   }
+
 }
 
 export default BoardsPage;
