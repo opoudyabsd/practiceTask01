@@ -1,23 +1,22 @@
-import BasePage from "../pom/basePage.js";
-import SignIn from "../pom/signInPage.js";
-const basePage = new BasePage()
-const signInPage = new SignIn()
+import BasePage from "../pom/page/basePage.js";
+import SignInPage from "../pom/page/signInPage.js";
+const basePage = new BasePage();
+const signInPage = new SignInPage();
 export async function loginToTrello() {
-    await basePage.open("/");
+  await basePage.open("/");
 
-    await basePage.openSignIn();
-    await signInPage.setEmail();
-    await signInPage.loginSumbitButtonClick();
-    await signInPage.password.waitForDisplayed({timeout: 30000})
-    // await browser.waitUntil(async () => {
-    //     return (await signInPage.password.isDisplayed());
-    // }, { timeout: 30000 });
-
-    await signInPage.setPassword();
-    await signInPage.loginSumbitButtonClick();
-    await signInPage.checkForCodeVerification();
-    await expect(browser).toHaveTitle("Boards | Trello")
-    // expect(await browser.getTitle()).to.equal("Boards | Trello");
-    await expect(signInPage.homeContainer).toBeDisplayed()
-    // (await signInPage.homeContainer.isDisplayed()).should.be.true;
+  await basePage.openSignIn();
+  await signInPage.signIn.setEmail();
+  await signInPage.signIn.loginSumbitButton.click();
+  await signInPage.signIn.password.waitForDisplayed({ timeout: 30000 }); // Sometimes I have a big timer when password is displayed
+  await signInPage.signIn.setPassword();
+  await signInPage.signIn.loginSumbitButton.click();
+  await signInPage.signIn.checkForCodeVerification();
+  await browser.waitUntil(
+    async () => {
+      return (await browser.getTitle()) === "Boards | Trello";
+    },
+    { timeout: 15000 }
+  );
+  await expect(signInPage.homeContainer).toBeDisplayed();
 }

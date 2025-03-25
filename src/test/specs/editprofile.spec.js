@@ -1,21 +1,21 @@
-import EditProfile from "../../pom/editProfilePage";
+import EditProfilePage from "../../pom/page/editProfilePage";
 import { loginToTrello } from "../../utils/authHelper";
-
+const editProfilePage = new EditProfilePage()
 
 describe("Edit Trello user profile", () => {
   before(async () => {
     await loginToTrello();
   });
   it("Open a profile page", async () => {
-    await EditProfile.avatarMenuButton.waitForClickable({ timeout: 5000 });
-    await EditProfile.avatarMenuButton.click();
-    await EditProfile.profileButton.click();
+    await editProfilePage.avatarMenuButton.click();
+    await expect(editProfilePage.avatarMenu).toBeDisplayed()
+    await editProfilePage.profileButton.click();
     await expect(browser).toHaveTitle("Profile | Trello")
-    await expect(EditProfile.h1Header).toHaveText("Manage your personal information")
+    await expect(editProfilePage.h1Header).toHaveText("Manage your personal information")
   });
   it("Change username", async () => {
-    await EditProfile.changeUsername();
-    await expect(EditProfile.savedMessage).toBeDisplayed()
-    await expect(EditProfile.savedMessage).toHaveText("Saved")
+    await editProfilePage.editProfile.changeUsername();
+    await expect(editProfilePage.savedMessage).toBeDisplayed()
+    await expect(editProfilePage.savedMessage).toHaveText("Saved")
   });
 });

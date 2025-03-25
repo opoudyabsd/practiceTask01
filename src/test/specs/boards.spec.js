@@ -1,16 +1,18 @@
-import boardsPage from "../../pom/boardsPage";
+import BoardsPage from "../../pom/page/boardsPage";
 import { loginToTrello } from "../../utils/authHelper";
+import { faker } from "@faker-js/faker";
+const boardsPage = new BoardsPage();
 describe("Create a bord", () => {
   before(async () => {
     await loginToTrello();
   });
   it("Open 'Create board' menu", async () => {
     await boardsPage.boardMenuButton.click();
-    await expect(boardsPage.boardMenu).toBeDisplayed();
+    await expect(boardsPage.createBoard.menu).toBeDisplayed();
   });
   it("Create a bord", async () => {
     const titleBoard = process.env.TITLENAME;
-    await boardsPage.createBoard(titleBoard);
+    await boardsPage.createBoard.newBoard(titleBoard);
     await expect(browser).toHaveTitle(`${titleBoard} | Trello`);
     await expect(boardsPage.boardNameDisplay).toHaveText(titleBoard);
   });
@@ -22,10 +24,10 @@ describe("Create a list", () => {
   });
   it("Opening 'Create a list' form", async () => {
     await boardsPage.addListButton.click();
-    await expect(boardsPage.addListForm).toBeDisplayed();
+    await expect(boardsPage.createList.addListForm).toBeDisplayed();
   });
   it("Create a new list", async () => {
-    await boardsPage.createList();
+    await boardsPage.createList.newList();
     await expect(boardsPage.list).toBeDisplayed();
   });
 });
@@ -36,12 +38,13 @@ describe("Create a card", () => {
   });
   it("Expect a card field to be displayed", async () => {
     await boardsPage.addCardButton.click();
-    await expect(boardsPage.addCardForm).toBeDisplayed();
+    await expect(boardsPage.createCard.addCardForm).toBeDisplayed();
   });
   it("Create a new card", async () => {
-    await boardsPage.createNewCard("newCart");
+    const cardName = faker.internet.username();
+    await boardsPage.createCard.newCard(cardName);
     await expect(boardsPage.newCard).toBeDisplayed();
-    await expect(boardsPage.cardName).toHaveText("newCart");
+    await expect(boardsPage.cardName).toHaveText(cardName);
   });
 });
 
@@ -56,18 +59,16 @@ describe("Implement sorting for unsorting cards", () => {
   });
   it("Open edit menu section", async () => {
     await boardsPage.listEditMenuButton.click();
-    await expect(boardsPage.listActions).toBeDisplayed();
-    await boardsPage.sortByButton.click();
-    await boardsPage.sortListTitle.waitForDisplayed();
-    await expect(boardsPage.sortListTitle).toBeDisplayed();
+    await expect(boardsPage.sortingCard.listActions).toBeDisplayed();
+    await boardsPage.sortingCard.byButton.click();
+    await expect(boardsPage.sortingCard.listTitle).toBeDisplayed();
   });
   it("Implement sorting", async () => {
-    await boardsPage.sortByCardNameButton.click();
+    await boardsPage.sortingCard.byCardNameButton.click();
     await boardsPage.sortedMessage.waitForDisplayed();
     await browser.pause(1500); // Because message appear after 1 second
     await expect(boardsPage.sortedMessage).toHaveText(
       "Successfully sorted list"
     );
-
   });
 });

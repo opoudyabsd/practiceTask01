@@ -1,7 +1,6 @@
-import { getVerificationCode } from "../utils/emailUtils";
+import { getVerificationCode } from "../../../utils/emailUtils"
 
-import BasePage from "./basePage";
-class SignIn extends BasePage {
+class SignInComponent {
   get userName() {
     return $("#username");
   }
@@ -11,19 +10,12 @@ class SignIn extends BasePage {
   get loginSumbitButton() {
     return $("#login-submit");
   }
-  get homeContainer() {
-    return $(".home-sticky-container");
-  }
   get verificationCodeExist() {
     return $(".css-1ndkufm");
   }
   get verificationCodeForm() {
     return $(".css-s6tjpp");
   }
-  async loginSumbitButtonClick() {
-    await this.loginSumbitButton.click();
-  }
-
   async setEmail() {
     await this.userName.setValue(process.env.EMAIL);
   }
@@ -40,4 +32,4 @@ class SignIn extends BasePage {
   }
 }
 
-export default SignIn;
+export default SignInComponent

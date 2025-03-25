@@ -1,7 +1,6 @@
-require("dotenv").config(); // Load .env file
-const chai = require("chai");
+import "dotenv/config";
 
-exports.config = {
+export const config = {
   //
   // ====================
   // Runner Configuration
@@ -27,9 +26,8 @@ exports.config = {
     // "../test/specs/signIn_up.spec.js",
     // "../test/specs/editprofile.spec.js",
     "../test/specs/boards.spec.js",
-    // '../test/specs/workspace.spec.js',
-    // '../test/specs/searching.spec.js'
-
+    // "../test/specs/workspace.spec.js",
+    // "../test/specs/searching.spec.js",
   ],
   // Patterns to exclude.
   exclude: [
@@ -150,7 +148,7 @@ exports.config = {
   mochaOpts: {
     ui: "bdd",
     timeout: 60000,
-    retries: 2,
+    // retries: 2,
   },
 
   //

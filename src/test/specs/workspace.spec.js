@@ -1,5 +1,6 @@
-import workspacePage from "../../pom/workspacePage";
+import WorkspacePage from "../../pom/page/workspacePage";
 import { loginToTrello } from "../../utils/authHelper";
+const workspacePage = new WorkspacePage();
 
 describe("Edit workspace", () => {
   before(async () => {
@@ -8,15 +9,19 @@ describe("Edit workspace", () => {
 
   it("Open workspace editing form", async () => {
     await workspacePage.openHomePage();
-    await workspacePage.workspaceEditButton.waitForClickable()
-    await workspacePage.workspaceEditButton.click();
-    await expect(workspacePage.workspaceEditForm).toBeDisplayed()
+    await workspacePage.editButton.click();
+
+    await expect(workspacePage.workspaceEdit.editForm).toBeDisplayed();
   });
 
   it("Change name of the workspace", async () => {
-    await workspacePage.editWorkspaceName(workspacePage.workspaceNewName);
-    await expect(workspacePage.workspaceEditForm).not.toBeDisplayed()
-    await expect(workspacePage.workspaceUsername).toHaveText(workspacePage.workspaceNewName)
+    await workspacePage.workspaceEdit.editUsername(
+      workspacePage.workspaceEdit.newUsername
+    );
+
+    await expect(workspacePage.workspaceEdit.editForm).not.toBeDisplayed();
+    await expect(workspacePage.usernameHeader).toHaveText(
+      workspacePage.workspaceEdit.newUsername
+    );
   });
 });
-
