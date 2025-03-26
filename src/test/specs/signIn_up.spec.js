@@ -17,7 +17,7 @@ describe("Trello Sign UP", () => {
   it("Enter email and click submit button", async () => {
     await signUpPage.signUp.enterEmail();
     await signUpPage.signUp.submitButton.click();
-    await signUpPage.handleCaptcha(); // If captcha is displayed solve it manually without clicking signup
+    await signUpPage.signUp.handleCaptcha(); // If captcha is displayed solve it manually without clicking signup
     await signUpPage.workSpaceHeader.waitForDisplayed({ timeout: 17000 }); // I set 17 sec becuase from time to time a have a big time for redirection to the next page
     await expect(browser).toHaveTitle("Create your first Workspace | Trello")
     await expect(signUpPage.workSpaceHeader).toHaveText("What brings you here today?")
@@ -28,10 +28,10 @@ describe("Trello Sign IN", () => {
   before(async () => {
     await browser.reloadSession();
     await basePage.open("/");
-  });
-  it("Open SignIn page", async () => {
     await basePage.signInButton.waitForClickable();
     await basePage.openSignIn();
+  });
+  it("Check SignIn page title", async () => {
     await expect(browser).toHaveTitle("Log in to continue - Log in with Atlassian account")
   });
   it("Signin with valid email and password", async () => {

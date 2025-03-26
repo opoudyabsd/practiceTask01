@@ -1,4 +1,4 @@
-import { browser, expect } from "@wdio/globals";
+import { browser } from "@wdio/globals";
 
 class BasePage {
   get signUpButton() {

@@ -20,6 +20,7 @@
     "@wdio/spec-reporter": "^9.11.0",
     "chai": "^4.0.2",
     "chai-webdriverio": "^1.0.0",
+    "eslint": "^9.23.0",
     "eslint-define-config": "^2.1.0",
     "globals": "^16.0.0",
     "wdio-eslinter-service": "^0.0.4",

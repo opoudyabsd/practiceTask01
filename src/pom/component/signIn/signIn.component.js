@@ -23,8 +23,7 @@ class SignInComponent {
     await this.password.setValue(process.env.PASSWORD);
   }
   async checkForCodeVerification() {
-    const isVerificationRequired =
-      await this.verificationCodeExist.isExisting();
+    const isVerificationRequired = await this.verificationCodeExist.isExisting();
     if (isVerificationRequired) {
       const verificationCode = await getVerificationCode();
       await this.verificationCodeForm.setValue(verificationCode);
