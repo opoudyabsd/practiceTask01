@@ -15,7 +15,6 @@ class EditProfileComponent{
         username = username.toLowerCase().replace(/[^a-z0-9]/g, "") + Date.now();
         await this.usernameId.setValue(username);
         await expect(this.usernameId).toHaveValue(username)
-        await this.profileSaveButton.waitForClickable({ timeout: 5000 });
         await this.profileSaveButton.click();
       }
 }

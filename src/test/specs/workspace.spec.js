@@ -5,12 +5,11 @@ const workspacePage = new WorkspacePage();
 describe("Edit workspace", () => {
   before(async () => {
     await loginToTrello();
+    await workspacePage.openHomePage();
   });
 
   it("Open workspace editing form", async () => {
-    await workspacePage.openHomePage();
     await workspacePage.editButton.click();
-
     await expect(workspacePage.workspaceEdit.editForm).toBeDisplayed();
   });
 
@@ -18,7 +17,6 @@ describe("Edit workspace", () => {
     await workspacePage.workspaceEdit.editUsername(
       workspacePage.workspaceEdit.newUsername
     );
-
     await expect(workspacePage.workspaceEdit.editForm).not.toBeDisplayed();
     await expect(workspacePage.usernameHeader).toHaveText(
       workspacePage.workspaceEdit.newUsername
