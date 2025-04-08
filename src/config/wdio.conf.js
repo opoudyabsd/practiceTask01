@@ -25,9 +25,9 @@ export const config = {
   specs: [
     // "../test/specs/signIn_up.spec.js",
     // "../test/specs/editprofile.spec.js",
-    "../test/specs/boards.spec.js",
+    // "../test/specs/boards.spec.js",
     // "../test/specs/workspace.spec.js",
-    // "../test/specs/searching.spec.js",
+    "../test/specs/searching.spec.js",
   ],
   // Patterns to exclude.
   exclude: [

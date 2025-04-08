@@ -8,7 +8,7 @@ export async function loginToTrello() {
   await basePage.openSignIn();
   await signInPage.signIn.setEmail();
   await signInPage.signIn.loginSumbitButton.click();
-  await signInPage.signIn.password.waitForDisplayed({ timeout: 30000 }); // Sometimes I have a big timer when password is displayed
+  await signInPage.signIn.password.waitForDisplayed({ timeout: 40000 }); // Sometimes I have a big timer when password is displayed
   await signInPage.signIn.setPassword();
   await signInPage.signIn.loginSumbitButton.click();
   await signInPage.signIn.checkForCodeVerification();
