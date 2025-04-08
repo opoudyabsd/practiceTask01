@@ -23,7 +23,8 @@ class SignInComponent {
     await this.password.setValue(process.env.PASSWORD);
   }
   async checkForCodeVerification() {
-    const isVerificationRequired = await this.verificationCodeExist.isDisplayed();
+    await this.verificationCodeExist.waitForExist()
+    const isVerificationRequired = await this.verificationCodeExist.isExisting();
     console.log(isVerificationRequired)
     console.log("bibij123")
     if (await isVerificationRequired) {
