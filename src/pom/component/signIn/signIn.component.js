@@ -11,7 +11,7 @@ class SignInComponent {
     return $("#login-submit");
   }
   get verificationCodeExist() {
-    return $(".css-xd87ek");
+    return $(".css-1pgxbvo");
   }
   get verificationCodeForm() {
     return $(".css-s6tjpp");
@@ -23,9 +23,13 @@ class SignInComponent {
     await this.password.setValue(process.env.PASSWORD);
   }
   async checkForCodeVerification() {
-    const isVerificationRequired = await this.verificationCodeExist.isExisting();
+    const isVerificationRequired = await this.verificationCodeExist.isDisplayed();
+    console.log(isVerificationRequired)
+    console.log("bibij123")
     if (await isVerificationRequired) {
+      console.log("kukaracha")
       const verificationCode = await getVerificationCode();
+      console.log(verificationCode)
       await this.verificationCodeForm.setValue(verificationCode);
     }
   }
