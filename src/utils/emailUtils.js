@@ -4,7 +4,7 @@ const client = new MailosaurClient('1NcYNUphDK5FVWhaqtlV1SsqtUqOuDkh');  // Repl
 export async function getVerificationCode() {
     const serverId = "gjsqgy6s"
     const message = await client.messages.get(serverId, {
-    sentFrom: "noreply+a38bb04@id.atlassian.com"
+    sentFrom: "noreply+fa74ac0@id.atlassian.com"
   });
     const code = message.text.body.match(/\b[A-Z0-9]{6}\b/g)
     console.log(code.toString())

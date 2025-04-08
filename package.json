@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "wdio run ./src/config/wdio.conf.js",
+    "test": "npx wdio run ./src/config/wdio.conf.js",
     "lint": "eslint ./src/test/specs --ext .js,.ts",
     "lint:fix": "eslint ./src/test/specs --ext .js,.ts --fix"
   },
@@ -14,6 +14,7 @@
   "description": "",
   "devDependencies": {
     "@eslint/js": "^9.23.0",
+    "@wdio/cli": "^9.12.4",
     "@wdio/local-runner": "^9.12.0",
     "@wdio/mocha-framework": "^9.11.0",
     "@wdio/selenium-standalone-service": "^8.14.0",

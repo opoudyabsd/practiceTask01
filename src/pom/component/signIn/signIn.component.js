@@ -11,7 +11,7 @@ class SignInComponent {
     return $("#login-submit");
   }
   get verificationCodeExist() {
-    return $(".css-1ndkufm");
+    return $(".css-xd87ek");
   }
   get verificationCodeForm() {
     return $(".css-s6tjpp");
@@ -24,7 +24,7 @@ class SignInComponent {
   }
   async checkForCodeVerification() {
     const isVerificationRequired = await this.verificationCodeExist.isExisting();
-    if (isVerificationRequired) {
+    if (await isVerificationRequired) {
       const verificationCode = await getVerificationCode();
       await this.verificationCodeForm.setValue(verificationCode);
     }
