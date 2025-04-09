@@ -1,4 +1,4 @@
-import { getVerificationCode } from "../../../utils/emailUtils"
+import { getVerificationCode } from "../../../utils/emailUtils";
 
 class SignInComponent {
   get userName() {
@@ -17,22 +17,25 @@ class SignInComponent {
     return $(".css-s6tjpp");
   }
   async setEmail() {
+    await this.userName.waitForDisplayed();
     await this.userName.setValue(process.env.EMAIL);
   }
   async setPassword() {
+    await this.password.waitForDisplayed();
     await this.password.setValue(process.env.PASSWORD);
   }
   async checkForCodeVerification() {
-    const isVerificationRequired = await this.verificationCodeExist.isExisting();
-    console.log(isVerificationRequired)
-    console.log("bibij123")
+    const isVerificationRequired =
+      await this.verificationCodeExist.isExisting();
+    console.log(isVerificationRequired);
+    console.log("bibij123");
     if (await isVerificationRequired) {
-      console.log("kukaracha")
+      console.log("kukaracha");
       const verificationCode = await getVerificationCode();
-      console.log(verificationCode)
+      console.log(verificationCode);
       await this.verificationCodeForm.setValue(verificationCode);
     }
   }
 }
 
-export default SignInComponent
+export default SignInComponent;

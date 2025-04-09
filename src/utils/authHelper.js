@@ -16,7 +16,7 @@ export async function loginToTrello() {
     async () => {
       return (await browser.getTitle()) === "Boards | Trello";
     },
-    { timeout: 15000 }
+    { timeout: 30000 }
   );
   await expect(signInPage.homeContainer).toBeDisplayed();
 }

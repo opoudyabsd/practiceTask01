@@ -1,5 +1,4 @@
 import "dotenv/config";
-
 export const config = {
   //
   // ====================
@@ -59,7 +58,7 @@ export const config = {
     {
       browserName: "chrome",
       "goog:chromeOptions": {
-        args: ["--lang=en-US"],
+        args: ["--lang=en-US", "--headless"],
         //   "--headless"
       },
     },
@@ -67,7 +66,7 @@ export const config = {
       browserName: "firefox",
       "moz:firefoxOptions": {
         prefs: { "intl.accept_languages": "en-US" },
-        // args: ["-headless"],
+        args: ["-headless"],
       },
     },
   ],
@@ -119,7 +118,7 @@ export const config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  services: ["geckodriver"  ], //
+  services: ["geckodriver"], //
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
   // see also: https://webdriver.io/docs/frameworks
@@ -141,7 +140,17 @@ export const config = {
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
-  reporters: ["spec"],
+  reporters: [
+    "spec",
+    [
+      "allure",
+      {
+        outputDir: "allure-results",
+        disableWebdriverStepsReporting: true,
+        disableWebdriverScreenshotsReporting: true,
+      },
+    ],
+  ],
 
   // Options to be passed to Mocha.
   // See the full list at http://mochajs.org/
@@ -165,6 +174,7 @@ export const config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    */
   // onPrepare: function (config, capabilities) {
+
   // },
   /**
    * Gets executed before a worker process is spawned and can be used to initialize specific service
@@ -289,7 +299,11 @@ export const config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {<Object>} results object containing test results
    */
-  // onComplete: function(exitCode, config, capabilities, results) {
+  //   onComplete: function () {
+  //     (async () => {
+  //         // eslint-disable-next-line no-undef
+  //         await reportAggregator.createReport();
+  //     })();
   // },
   /**
    * Gets executed when a refresh happens.
