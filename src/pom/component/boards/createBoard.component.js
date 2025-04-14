@@ -10,7 +10,6 @@ class CreateBoardComponent {
   }
   get titleBoardName() {
     return process.env.TITLENAME;
-
   }
   async newBoard(title) {
     await this.titleForm.setValue(title);

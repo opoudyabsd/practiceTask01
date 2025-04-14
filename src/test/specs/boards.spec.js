@@ -11,9 +11,15 @@ describe("Create a bord", () => {
     await expect(boardsPage.createBoard.menu).toBeDisplayed();
   });
   it("Create a bord", async () => {
-    await boardsPage.createBoard.newBoard(boardsPage.createBoard.titleBoardName);
-    await expect(browser).toHaveTitle(`${boardsPage.createBoard.titleBoardName} | Trello`);
-    await expect(boardsPage.boardNameDisplay).toHaveText(boardsPage.createBoard.titleBoardName);
+    await boardsPage.createBoard.newBoard(
+      boardsPage.createBoard.titleBoardName,
+    );
+    await expect(browser).toHaveTitle(
+      `${boardsPage.createBoard.titleBoardName} | Trello`,
+    );
+    await expect(boardsPage.boardNameDisplay).toHaveText(
+      boardsPage.createBoard.titleBoardName,
+    );
   });
 });
 
@@ -65,9 +71,9 @@ describe("Implement sorting for unsorting cards", () => {
   it("Implement sorting", async () => {
     await boardsPage.sortingCard.byCardNameButton.click();
     await browser.pause(1500); // Because message appear after 1 second
-    await expect(boardsPage.sortedMessage).toBeDisplayed()
+    await expect(boardsPage.sortedMessage).toBeDisplayed();
     await expect(boardsPage.sortedMessage).toHaveText(
-      "Successfully sorted list"
+      "Successfully sorted list",
     );
   });
 });

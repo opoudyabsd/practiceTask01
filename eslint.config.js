@@ -4,7 +4,7 @@ import globals from "globals";
 
 export default defineConfig([
   {
-    files: ["**/*.{js,mjs,cjs}"],
+    files: ["**/*.js"],
     languageOptions: {
       globals: {
         ...globals.node, // Includes process, require, module, etc.
@@ -19,7 +19,7 @@ export default defineConfig([
         beforeEach: "readonly",
         after: "readonly",
         afterEach: "readonly",
-        expect: "readonly"
+        expect: "readonly",
       },
     },
     plugins: {
@@ -28,4 +28,3 @@ export default defineConfig([
     extends: ["js/recommended"],
   },
 ]);
-

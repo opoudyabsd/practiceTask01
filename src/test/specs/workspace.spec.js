@@ -15,11 +15,11 @@ describe("Edit workspace", () => {
 
   it("Change name of the workspace", async () => {
     await workspacePage.workspaceEdit.editUsername(
-      workspacePage.workspaceEdit.newUsername
+      workspacePage.workspaceEdit.newUsername,
     );
     await expect(workspacePage.workspaceEdit.editForm).not.toBeDisplayed();
     await expect(workspacePage.usernameHeader).toHaveText(
-      workspacePage.workspaceEdit.newUsername
+      workspacePage.workspaceEdit.newUsername,
     );
   });
 });

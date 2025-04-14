@@ -12,7 +12,7 @@ class SearchPage {
   }
   get titleBoardSelector() {
     return $(
-      `//div[@role="presentation"]//*[text()="${this.search.seachTitleName}"]`
+      `//div[@role="presentation"]//*[text()="${this.search.seachTitleName}"]`,
     );
   }
   get advanceSeachHeader() {

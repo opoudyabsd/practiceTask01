@@ -58,7 +58,7 @@ export const config = {
     {
       browserName: "chrome",
       "goog:chromeOptions": {
-        args: ["--lang=en-US", "--headless"],
+        args: ["--lang=en-US"],
         //   "--headless"
       },
     },
@@ -66,7 +66,7 @@ export const config = {
       browserName: "firefox",
       "moz:firefoxOptions": {
         prefs: { "intl.accept_languages": "en-US" },
-        args: ["-headless"],
+        // args: ["-headless"],
       },
     },
   ],
@@ -157,7 +157,7 @@ export const config = {
   mochaOpts: {
     ui: "bdd",
     timeout: 60000,
-    retries: 2,
+    // retries: 2,
   },
 
   //

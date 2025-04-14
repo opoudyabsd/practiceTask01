@@ -4,10 +4,8 @@ class SignUpPage {
     this.signUp = new SignUpComponent();
   }
   get workSpaceHeader() {
-    return $(".IxRgeAVbrErAiv");
+    return $("div .IxRgeAVbrErAiv");
   }
-
-
 }
 
 export default SignUpPage;

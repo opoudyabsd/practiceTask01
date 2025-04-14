@@ -58,7 +58,6 @@ class BoardsPage {
   get sortedMessage() {
     return $(".QMKgZFIlTLiEJN");
   }
-
 }
 
 export default BoardsPage;

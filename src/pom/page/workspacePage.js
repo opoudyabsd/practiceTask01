@@ -10,7 +10,7 @@ class WorkspacePage {
     return $("h2.SiP6d2d_8FAAkC");
   }
   async openHomePage() {
-    await browser.url("/w/userworkspace38492828/home");
+    await browser.url("/w/userworkspace31831721/home");
   }
 }
 
