@@ -1,3 +1,7 @@
 # Ignore artifacts:
-build
-coverage
+wdio.conf.js
+jsconfig.json
+.env
+.gitignore
+package.json
+package-lock.json
